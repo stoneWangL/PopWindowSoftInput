@@ -1,12 +1,14 @@
 package com.example.stone.popwindowsoftinput;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
@@ -39,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
         //防止PopupWindow被软件盘挡住（可能只要下面一句，可能需要这两句）
 //        mPopWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
         mPopWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        //获取软键盘
+        InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //这里给它设置了弹出的时间，
+        inputMethodManager.toggleSoftInput(1000, InputMethodManager.HIDE_NOT_ALWAYS);
         //设置各个控件的点击响应
         final EditText editText = contentView.findViewById(R.id.pop_editText);
         Button btn = contentView.findViewById(R.id.pop_btn);
@@ -48,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String inputString = editText.getText().toString();
                 Toast.makeText(MainActivity.this, inputString, Toast.LENGTH_SHORT).show();
+                mPopWindow.dismiss();//让PopupWindow消失
             }
         });
         //是否具有获取焦点的能力
@@ -56,8 +63,4 @@ public class MainActivity extends AppCompatActivity {
         View rootview = LayoutInflater.from(MainActivity.this).inflate(R.layout.activity_main, null);
         mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
     }
-
-
-
-
 }
