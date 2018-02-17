@@ -41,10 +41,9 @@ public class MainActivity extends AppCompatActivity {
         //防止PopupWindow被软件盘挡住（可能只要下面一句，可能需要这两句）
 //        mPopWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
         mPopWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        //获取软键盘
+        //设置软键盘弹出
         InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        //这里给它设置了弹出的时间，
-        inputMethodManager.toggleSoftInput(1000, InputMethodManager.HIDE_NOT_ALWAYS);
+        inputMethodManager.toggleSoftInput(1000, InputMethodManager.HIDE_NOT_ALWAYS);//这里给它设置了弹出的时间
         //设置各个控件的点击响应
         final EditText editText = contentView.findViewById(R.id.pop_editText);
         Button btn = contentView.findViewById(R.id.pop_btn);
